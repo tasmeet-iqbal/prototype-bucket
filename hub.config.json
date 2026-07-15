@@ -1,0 +1,14 @@
+{
+  "name": "Prototype Bucket",
+  "icon": "bulb",
+  "mark": "P",
+  "tagline": "Share once. Every link serves the latest released version.",
+  "brandColor": "#2A2D31",
+  "timezone": "UTC",
+  "basePath": "",
+  "font": {
+    "family": "Space Grotesk",
+    "cssUrl": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap",
+    "heading": { "family": "", "cssUrl": "" }
+  }
+}

@@ -1,0 +1,12 @@
+# Run the Hub as a long-lived server:
+#   docker compose up -d   ->   http://localhost:3000
+services:
+  hub:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      # Uncomment to require a login (format "user:pass"):
+      # - HUB_BASIC_AUTH=team:changeme
+    restart: unless-stopped

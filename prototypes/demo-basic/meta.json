@@ -1,0 +1,8 @@
+{
+  "title": "Sign-in screen",
+  "product": "Demo",
+  "owner": "Design team",
+  "status": "final",
+  "tags": ["auth", "demo"],
+  "description": "A clean single-screen sign-in prototype. Shows how a version-less prototype renders in the Hub."
+}

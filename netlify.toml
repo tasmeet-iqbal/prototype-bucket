@@ -1,0 +1,5 @@
+# Netlify builds the static site and serves ./dist.
+# Folder index.html files give clean URLs (/p/<slug>/) out of the box.
+[build]
+  command = "node build.js"
+  publish = "dist"

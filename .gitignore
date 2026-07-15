@@ -1,0 +1,16 @@
+# Build output (static site)
+/dist/
+
+# Dependencies (there are none, but just in case a contributor adds tooling)
+/node_modules/
+
+# Local env
+.env
+.env.local
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

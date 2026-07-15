@@ -1,0 +1,24 @@
+{
+  "name": "prototype-bucket",
+  "version": "1.0.0",
+  "description": "Self-hostable portal for HTML prototypes. One stable link per prototype, with version history. Zero dependencies. Deploy as a Node server or a static site.",
+  "license": "MIT",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "build": "node build.js",
+    "release": "node release.js",
+    "new": "node new.js"
+  },
+  "keywords": [
+    "prototype",
+    "html",
+    "gallery",
+    "static-site",
+    "versioning",
+    "self-hosted"
+  ]
+}

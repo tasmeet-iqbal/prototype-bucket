@@ -1,0 +1,19 @@
+{
+  "current": 2,
+  "versions": [
+    {
+      "v": 1,
+      "dir": "v1",
+      "entry": "index.html",
+      "date": "2026-05-12T09:30:00.000Z",
+      "notes": "v1: initial checkout with order summary and a single Place order button."
+    },
+    {
+      "v": 2,
+      "dir": "v2",
+      "entry": "index.html",
+      "date": "2026-06-24T14:05:00.000Z",
+      "notes": "v2: added an Express checkout button above the card fields and a secure-payment trust line under the CTA."
+    }
+  ]
+}

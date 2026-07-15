@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+dist
+deploy
+examples
+*.log
+.env
+.env.local
+.DS_Store
+Thumbs.db

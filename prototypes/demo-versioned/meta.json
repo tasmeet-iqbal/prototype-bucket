@@ -1,0 +1,8 @@
+{
+  "title": "Checkout flow",
+  "product": "Demo",
+  "owner": "Design team",
+  "status": "review",
+  "tags": ["checkout", "demo"],
+  "description": "A checkout screen with two versions. Open it, then use the version dropdown and History to see v1 vs v2."
+}

@@ -1,0 +1,33 @@
+# Point this at wherever you pushed the image (see the Docker recipe in deploy/README.md).
+# CI can override with:  --set image.repository=... --set image.tag=...
+image:
+  repository: ghcr.io/your-org/prototype-hub
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Only needed if your registry is private and the namespace has a pull secret.
+imagePullSecrets: []
+# imagePullSecrets:
+#   - name: regcred
+
+nameOverride: ""
+fullnameOverride: prototype-hub
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: http
+
+# A zero-dependency Node static server is tiny; these are generous.
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: "500m"
+    memory: 128Mi
+
+# Ingress is intentionally left out of the chart: bring your own (nginx, Traefik,
+# a cloud LB) and point it at this Service on port 80.
