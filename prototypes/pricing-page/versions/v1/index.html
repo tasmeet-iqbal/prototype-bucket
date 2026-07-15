@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #F4F5F7; color: #1D2939; }
+    .demo-banner { display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #F1F2F4; color: #667085; font-size: 12.5px; padding: 8px 14px;
+      border-bottom: 1px solid #E6E8EB; }
+    .demo-banner svg { flex: none; }
+    .stage { flex: 1; padding: 40px 24px 56px; }
+    .head { max-width: 960px; margin: 0 auto 26px; text-align: center; }
+    .head h1 { font-size: 26px; margin: 0 0 6px; }
+    .head p { color: #667085; font-size: 15px; margin: 0 0 20px; }
+    .toggle { display: inline-flex; border: 1px solid #D0D5DD; border-radius: 999px;
+      background: #fff; padding: 3px; }
+    .toggle button { border: 0; background: none; font-family: inherit; font-size: 13px;
+      font-weight: 600; color: #667085; padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+    .toggle button.on { background: #1D2939; color: #fff; }
+    .save-note { font-size: 12.5px; color: #667085; margin: 10px 0 0; }
+    .grid { max-width: 960px; margin: 0 auto; display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .plan { background: #fff; border: 1px solid #EAECF0; border-radius: 16px; padding: 24px;
+      display: flex; flex-direction: column; }
+    .plan .rec { align-self: flex-start; font-size: 11px; font-weight: 600; color: #234C86;
+      background: #E4ECF8; padding: 3px 9px; border-radius: 999px; margin-bottom: 12px; }
+    .plan h2 { font-size: 17px; margin: 0 0 2px; }
+    .plan .who { color: #667085; font-size: 13px; margin: 0 0 16px; }
+    .price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 2px; }
+    .price .amt { font-size: 32px; font-weight: 700; }
+    .price .per { color: #667085; font-size: 13px; }
+    .billed { color: #98A3B3; font-size: 12px; min-height: 16px; margin-bottom: 18px; }
+    .feats { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .feats li { display: flex; gap: 9px; align-items: flex-start; font-size: 13.5px; color: #475467; line-height: 1.4; }
+    .feats svg { flex: none; color: #1E6B3B; margin-top: 1px; }
+    .choose { margin-top: auto; width: 100%; padding: 11px; border: 1px solid #1D2939; border-radius: 10px;
+      background: #fff; color: #1D2939; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; }
+    .choose:hover { background: #F9FAFB; }
+    .plan.pop .choose { background: #1D2939; color: #fff; }
+    .plan.pop .choose:hover { background: #101828; }
+    .done { max-width: 460px; margin: 40px auto; background: #fff; border: 1px solid #EAECF0;
+      border-radius: 16px; padding: 36px 28px; text-align: center; }
+    .check { width: 56px; height: 56px; border-radius: 50%; background: #E2F1E6;
+      display: grid; place-items: center; margin: 0 auto 18px; }
+    .done h2 { font-size: 19px; margin: 0 0 6px; }
+    .done p { color: #667085; font-size: 14px; margin: 0; line-height: 1.5; }
+    .link-btn { margin-top: 22px; background: none; border: 0; color: #475467; font-size: 13px;
+      font-weight: 600; font-family: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="demo-banner">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    Demo prototype. Sample interaction only, nothing is charged.
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="head">
+      <h1>Pricing</h1>
+      <p>Choose a plan.</p>
+      <div class="toggle" role="group" aria-label="Billing period">
+        <button id="bill-monthly" class="on" type="button">Monthly</button>
+        <button id="bill-annual" type="button">Annual</button>
+      </div>
+      <p class="save-note" id="save-note">&nbsp;</p>
+    </div>
+
+    <div class="grid">
+      <div class="plan">
+        <h2>Starter</h2>
+        <p class="who">For individuals.</p>
+        <div class="price"><span class="amt" data-monthly="12">$12</span><span class="per">/mo</span></div>
+        <div class="billed" data-billed></div>
+        <ul class="feats">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>1 project</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Up to 3 prototypes</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Community support</li>
+        </ul>
+        <button class="choose" type="button" data-plan="Starter">Choose Starter</button>
+      </div>
+
+      <div class="plan pop">
+        <span class="rec">Recommended</span>
+        <h2>Team</h2>
+        <p class="who">For small teams.</p>
+        <div class="price"><span class="amt" data-monthly="24">$24</span><span class="per">/mo</span></div>
+        <div class="billed" data-billed></div>
+        <ul class="feats">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>10 projects</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited prototypes</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Version history</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Email support</li>
+        </ul>
+        <button class="choose" type="button" data-plan="Team">Choose Team</button>
+      </div>
+
+      <div class="plan">
+        <h2>Business</h2>
+        <p class="who">For organizations.</p>
+        <div class="price"><span class="amt" data-monthly="48">$48</span><span class="per">/mo</span></div>
+        <div class="billed" data-billed></div>
+        <ul class="feats">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Unlimited projects</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>SSO and roles</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Audit log</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Priority support</li>
+        </ul>
+        <button class="choose" type="button" data-plan="Business">Choose Business</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="done hidden" id="done">
+    <div class="check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E6B3B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+    <h2 id="done-title">Plan selected</h2>
+    <p id="done-msg"></p>
+    <button class="link-btn" id="over">Start over</button>
+  </div>
+
+  <script>
+    var annual = false;
+    var monthlyBtn = document.getElementById('bill-monthly');
+    var annualBtn = document.getElementById('bill-annual');
+    var saveNote = document.getElementById('save-note');
+
+    function priceFor(monthly) { return annual ? Math.round(monthly * 0.8) : monthly; }
+    function refresh() {
+      monthlyBtn.classList.toggle('on', !annual);
+      annualBtn.classList.toggle('on', annual);
+      saveNote.innerHTML = annual ? 'Annual saves 20%.' : '&nbsp;';
+      document.querySelectorAll('.amt').forEach(function (el) {
+        el.textContent = '$' + priceFor(parseInt(el.getAttribute('data-monthly'), 10));
+      });
+      document.querySelectorAll('[data-billed]').forEach(function (el) {
+        el.textContent = annual ? 'billed annually' : '';
+      });
+    }
+    monthlyBtn.addEventListener('click', function () { annual = false; refresh(); });
+    annualBtn.addEventListener('click', function () { annual = true; refresh(); });
+
+    document.querySelectorAll('.choose').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var plan = btn.getAttribute('data-plan');
+        document.getElementById('done-title').textContent = 'You chose the ' + plan + ' plan';
+        document.getElementById('done-msg').textContent =
+          'Billed ' + (annual ? 'annually' : 'monthly') + '. This is a demo, nothing is charged.';
+        document.getElementById('stage').classList.add('hidden');
+        document.getElementById('done').classList.remove('hidden');
+      });
+    });
+    document.getElementById('over').addEventListener('click', function () {
+      document.getElementById('done').classList.add('hidden');
+      document.getElementById('stage').classList.remove('hidden');
+    });
+    refresh();
+  </script>
+</body>
+</html>

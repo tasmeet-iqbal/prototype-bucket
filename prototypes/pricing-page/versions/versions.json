@@ -1,0 +1,12 @@
+{
+  "current": 1,
+  "versions": [
+    {
+      "v": 1,
+      "dir": "v1",
+      "entry": "index.html",
+      "date": "2026-07-15T07:31:15.651Z",
+      "notes": "v1: initial pricing page with monthly and annual toggle"
+    }
+  ]
+}

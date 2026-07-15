@@ -1,0 +1,8 @@
+{
+  "title": "Pricing page",
+  "product": "Demo",
+  "owner": "Design team",
+  "status": "review",
+  "tags": ["pricing", "demo"],
+  "description": "Three-tier pricing with a monthly and annual toggle."
+}
