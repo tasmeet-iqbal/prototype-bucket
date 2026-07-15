@@ -6,15 +6,20 @@
   <title>Sign in</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center;
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column;
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
       background: #F4F5F7; color: #1D2939; }
+    .demo-banner { display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #F1F2F4; color: #667085; font-size: 12.5px; padding: 8px 14px;
+      border-bottom: 1px solid #E6E8EB; }
+    .demo-banner svg { flex: none; }
+    .stage { flex: 1; display: grid; place-items: center; padding: 24px; }
     .card { width: 360px; max-width: 92vw; background: #fff; border: 1px solid #EAECF0;
       border-radius: 16px; padding: 32px 28px; box-shadow: 0 10px 30px rgba(16,24,40,.06); }
     .logo { width: 40px; height: 40px; border-radius: 10px; background: #1D2939; color: #fff;
       display: grid; place-items: center; font-weight: 800; margin-bottom: 20px; }
     h1 { font-size: 22px; margin: 0 0 4px; }
-    .sub { color: #667085; font-size: 14px; margin: 0 0 24px; }
+    .sub { color: #667085; font-size: 14px; margin: 0 0 24px; line-height: 1.5; }
     label { display: block; font-size: 13px; font-weight: 600; margin: 0 0 6px; }
     input { width: 100%; padding: 11px 12px; border: 1px solid #D0D5DD; border-radius: 9px;
       font-size: 14px; font-family: inherit; margin-bottom: 16px; outline: none; }
@@ -22,29 +27,63 @@
     .btn { width: 100%; padding: 12px; border: 0; border-radius: 9px; background: #1D2939;
       color: #fff; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; }
     .btn:hover { background: #101828; }
+    .btn:disabled { opacity: .7; cursor: default; }
     .row { display: flex; justify-content: space-between; align-items: center; margin: 0 0 20px; font-size: 13px; }
     .row a { color: #475467; text-decoration: none; }
     .foot { text-align: center; font-size: 13px; color: #667085; margin-top: 20px; }
     .foot a { color: #1D2939; font-weight: 600; text-decoration: none; }
+    .done { text-align: center; }
+    .check { width: 56px; height: 56px; border-radius: 50%; background: #E2F1E6;
+      display: grid; place-items: center; margin: 0 auto 18px; }
+    .link-btn { margin-top: 22px; background: none; border: 0; color: #475467; font-size: 13px;
+      font-weight: 600; font-family: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="card">
-    <div class="logo">A</div>
-    <h1>Welcome back</h1>
-    <p class="sub">Sign in to your account to continue.</p>
-    <label for="email">Email</label>
-    <input id="email" type="email" placeholder="you@company.com" value="jordan@company.com">
-    <label for="pw">Password</label>
-    <input id="pw" type="password" placeholder="Enter your password" value="password">
-    <div class="row">
-      <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0">
-        <input type="checkbox" style="width:auto;margin:0" checked> Remember me
-      </label>
-      <a href="#">Forgot password?</a>
-    </div>
-    <button class="btn" onclick="this.textContent='Signing in...'">Sign in</button>
-    <p class="foot">New here? <a href="#">Create an account</a></p>
+  <div class="demo-banner">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    Demo prototype. Sample interaction only, nothing is submitted.
   </div>
+  <div class="stage">
+    <div class="card" id="form">
+      <div class="logo">A</div>
+      <h1>Welcome back</h1>
+      <p class="sub">Sign in to your account to continue.</p>
+      <label for="email">Email</label>
+      <input id="email" type="email" value="jordan@company.com">
+      <label for="pw">Password</label>
+      <input id="pw" type="password" value="password">
+      <div class="row">
+        <label style="display:flex;align-items:center;gap:6px;font-weight:400;margin:0">
+          <input type="checkbox" style="width:auto;margin:0" checked> Remember me
+        </label>
+        <a href="#">Forgot password?</a>
+      </div>
+      <button class="btn" id="signin">Sign in</button>
+      <p class="foot">New here? <a href="#">Create an account</a></p>
+    </div>
+    <div class="card done hidden" id="done">
+      <div class="check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E6B3B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+      <h1>You are signed in</h1>
+      <p class="sub">Welcome back, Jordan. This is where your dashboard would load.</p>
+      <button class="link-btn" id="over">Start over</button>
+    </div>
+  </div>
+  <script>
+    var btn = document.getElementById('signin');
+    btn.addEventListener('click', function () {
+      btn.disabled = true; btn.textContent = 'Signing in...';
+      setTimeout(function () {
+        document.getElementById('form').classList.add('hidden');
+        document.getElementById('done').classList.remove('hidden');
+      }, 800);
+    });
+    document.getElementById('over').addEventListener('click', function () {
+      document.getElementById('done').classList.add('hidden');
+      document.getElementById('form').classList.remove('hidden');
+      btn.disabled = false; btn.textContent = 'Sign in';
+    });
+  </script>
 </body>
 </html>

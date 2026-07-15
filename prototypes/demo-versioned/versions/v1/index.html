@@ -6,8 +6,14 @@
   <title>Checkout</title>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; min-height: 100vh; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-      background: #F4F5F7; color: #1D2939; display: grid; place-items: center; padding: 24px; }
+    body { margin: 0; min-height: 100vh; display: flex; flex-direction: column;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
+      background: #F4F5F7; color: #1D2939; }
+    .demo-banner { display: flex; align-items: center; justify-content: center; gap: 8px;
+      background: #F1F2F4; color: #667085; font-size: 12.5px; padding: 8px 14px;
+      border-bottom: 1px solid #E6E8EB; }
+    .demo-banner svg { flex: none; }
+    .stage { flex: 1; display: grid; place-items: center; padding: 24px; }
     .sheet { width: 420px; max-width: 96vw; background: #fff; border: 1px solid #EAECF0;
       border-radius: 16px; overflow: hidden; }
     .head { padding: 20px 24px; border-bottom: 1px solid #EAECF0; }
@@ -21,21 +27,57 @@
     .btn { width: 100%; margin-top: 20px; padding: 13px; border: 0; border-radius: 10px;
       background: #1D2939; color: #fff; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; }
     .btn:hover { background: #101828; }
+    .btn:disabled { opacity: .7; cursor: default; }
+    .done { padding: 40px 24px; text-align: center; }
+    .check { width: 56px; height: 56px; border-radius: 50%; background: #E2F1E6;
+      display: grid; place-items: center; margin: 0 auto 18px; }
+    .done h1 { font-size: 19px; margin: 0 0 6px; }
+    .done p { color: #667085; font-size: 14px; margin: 0; line-height: 1.5; }
+    .ordno { font-weight: 700; color: #1D2939; }
+    .link-btn { margin-top: 22px; background: none; border: 0; color: #475467; font-size: 13px;
+      font-weight: 600; font-family: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
-  <div class="sheet">
-    <div class="head">
-      <h1>Checkout</h1>
-      <p>Review your order and pay.</p>
+  <div class="demo-banner">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    Demo prototype. Sample interaction only, no payment is taken.
+  </div>
+  <div class="stage">
+    <div class="sheet" id="form">
+      <div class="head"><h1>Checkout</h1><p>Review your order and pay.</p></div>
+      <div class="body">
+        <div class="line"><span>Wireless headphones</span><span>$79.00</span></div>
+        <div class="line"><span>USB-C cable (2m)</span><span>$12.00</span></div>
+        <div class="line"><span class="muted">Shipping</span><span class="muted">$5.00</span></div>
+        <div class="total"><span>Total</span><span>$96.00</span></div>
+        <button class="btn" id="place">Place order</button>
+      </div>
     </div>
-    <div class="body">
-      <div class="line"><span>Wireless headphones</span><span>$79.00</span></div>
-      <div class="line"><span>USB-C cable (2m)</span><span>$12.00</span></div>
-      <div class="line"><span class="muted">Shipping</span><span class="muted">$5.00</span></div>
-      <div class="total"><span>Total</span><span>$96.00</span></div>
-      <button class="btn" onclick="this.textContent='Processing...'">Place order</button>
+    <div class="sheet hidden" id="done">
+      <div class="done">
+        <div class="check"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1E6B3B" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+        <h1>Order placed</h1>
+        <p>Order <span class="ordno">#10482</span> is confirmed.<br>A receipt is on its way to jordan@company.com.</p>
+        <button class="link-btn" id="over">Start over</button>
+      </div>
     </div>
   </div>
+  <script>
+    var btn = document.getElementById('place');
+    btn.addEventListener('click', function () {
+      btn.disabled = true; btn.textContent = 'Processing...';
+      setTimeout(function () {
+        document.getElementById('form').classList.add('hidden');
+        document.getElementById('done').classList.remove('hidden');
+      }, 800);
+    });
+    document.getElementById('over').addEventListener('click', function () {
+      document.getElementById('done').classList.add('hidden');
+      document.getElementById('form').classList.remove('hidden');
+      btn.disabled = false; btn.textContent = 'Place order';
+    });
+  </script>
 </body>
 </html>
